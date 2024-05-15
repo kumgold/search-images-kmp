@@ -1,0 +1,4 @@
+com.example.search_images_kmp.android.test.androidApp-androidTest-0 /Users/gold/AndroidStudioProjects/KMPSearchImages/androidApp/build/generated/res/resValues/androidTest/debug
+com.example.search_images_kmp.android.test.androidApp-mergeDebugAndroidTestResources-1 /Users/gold/AndroidStudioProjects/KMPSearchImages/androidApp/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
+com.example.search_images_kmp.android.test.androidApp-mergeDebugAndroidTestResources-2 /Users/gold/AndroidStudioProjects/KMPSearchImages/androidApp/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
+com.example.search_images_kmp.android.test.androidApp-debugAndroidTest-3 /Users/gold/AndroidStudioProjects/KMPSearchImages/androidApp/build/intermediates/merged_res/debugAndroidTest/mergeDebugAndroidTestResources

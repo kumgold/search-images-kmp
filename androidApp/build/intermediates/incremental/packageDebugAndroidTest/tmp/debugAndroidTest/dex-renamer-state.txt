@@ -1,0 +1,4 @@
+#Wed May 15 17:43:49 KST 2024
+base.0=/Users/gold/AndroidStudioProjects/KMPSearchImages/androidApp/build/intermediates/dex/debugAndroidTest/mergeProjectDexDebugAndroidTest/0/classes.dex
+path.0=0/classes.dex
+renamed.0=classes.dex
