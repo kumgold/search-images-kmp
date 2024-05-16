@@ -8,6 +8,9 @@
         android:minSdkVersion="26"
         android:targetSdkVersion="34" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <permission
         android:name="com.example.search_images_kmp.android.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
@@ -15,6 +18,7 @@
     <uses-permission android:name="com.example.search_images_kmp.android.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
+        android:name="com.example.search_images_kmp.android.di.App"
         android:allowBackup="false"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
@@ -39,6 +43,9 @@
             android:name="androidx.startup.InitializationProvider"
             android:authorities="com.example.search_images_kmp.android.androidx-startup"
             android:exported="false" >
+            <meta-data
+                android:name="io.kamel.core.ApplicationContextInitializer"
+                android:value="androidx.startup" />
             <meta-data
                 android:name="androidx.emoji2.text.EmojiCompatInitializer"
                 android:value="androidx.startup" />

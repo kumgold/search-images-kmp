@@ -4,11 +4,28 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.search_images_kmp.Greeting
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.example.search_images_kmp.android.ui.bookmark.BookmarkScreen
+import com.example.search_images_kmp.android.ui.search.SearchScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,22 +36,68 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GreetingView(Greeting().greet())
+                    MainApp()
                 }
             }
         }
     }
 }
 
-@Composable
-fun GreetingView(text: String) {
-    Text(text = text)
+enum class AppScreen(private val title: String) {
+    Search("Search"),
+    Bookmark("Bookmark")
 }
 
-@Preview
 @Composable
-fun DefaultPreview() {
-    MyApplicationTheme {
-        GreetingView("Hello, Android!")
+fun MainApp(
+    navController: NavHostController = rememberNavController()
+) {
+    val screens = mapOf(
+        AppScreen.Search to Icons.Default.Search,
+        AppScreen.Bookmark to Icons.Default.Favorite
+    )
+
+    Scaffold(
+        bottomBar = {
+            val navBackStackEntry by navController.currentBackStackEntryAsState()
+            val currentDestination = navBackStackEntry?.destination
+
+            BottomAppBar {
+                screens.forEach { screen ->
+                    NavigationBarItem(
+                        selected = (currentDestination?.hierarchy?.any { it.route == screen.key.name } == true),
+                        onClick = {
+                            navController.navigate(screen.key.name) {
+                                launchSingleTop = true
+                            }
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = screen.value,
+                                contentDescription = screen.key.name
+                            )
+                        },
+                        label = {
+                            Text(text = screen.key.name)
+                        }
+                    )
+                }
+            }
+        }
+    ) { paddingValues ->
+        NavHost(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues),
+            startDestination = AppScreen.Search.name,
+            navController = navController
+        ) {
+            composable(AppScreen.Search.name) {
+                SearchScreen()
+            }
+            composable(AppScreen.Bookmark.name) {
+                BookmarkScreen()
+            }
+        }
     }
 }
