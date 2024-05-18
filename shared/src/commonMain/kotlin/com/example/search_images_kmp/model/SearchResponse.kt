@@ -6,5 +6,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class SearchResponse(
     @SerialName("meta") val metaData: MetaData? = null,
-    @SerialName("documents") val networkImages: List<NetworkImage>
+    @SerialName("documents") val images: List<NetworkImage> = emptyList(),
+    val message: String? = null
 )

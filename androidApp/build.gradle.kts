@@ -39,7 +39,11 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.lifecycle.runtime)
+
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.coil.compose)
 
     implementation(projects.shared)
     implementation(libs.compose.ui)

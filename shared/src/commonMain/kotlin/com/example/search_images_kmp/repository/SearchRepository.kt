@@ -6,7 +6,7 @@ import com.example.search_images_kmp.network.KakaoApi
 class SearchRepository(
     private val api: KakaoApi
 ) {
-    suspend fun searchImages(keyword: String): SearchResponse {
-        return api.getImages(keyword)
+    suspend fun searchImages(keyword: String, page: Int): SearchResponse {
+        return api.getImages(keyword, page)
     }
 }

@@ -1,0 +1,17 @@
+CREATE TABLE LocalImage (
+    id TEXT NOT NULL PRIMARY KEY,
+    imageUrl TEXT NOT NULL,
+    thumbnailUrl TEXT,
+    documentUrl TEXT,
+    keyword TEXT
+);
+
+insertImage:
+INSERT OR REPLACE INTO LocalImage(id, imageUrl, thumbnailUrl, documentUrl, keyword)
+VALUES (?, ?, ?, ?, ?);
+
+selectAllImages:
+SELECT * FROM LocalImage;
+
+deleteImages:
+DELETE FROM LocalImage WHERE id = :id;

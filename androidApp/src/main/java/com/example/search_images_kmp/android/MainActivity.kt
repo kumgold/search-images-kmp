@@ -1,8 +1,13 @@
 package com.example.search_images_kmp.android
 
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.util.Base64
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -26,10 +31,21 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.search_images_kmp.android.ui.bookmark.BookmarkScreen
 import com.example.search_images_kmp.android.ui.search.SearchScreen
+import java.security.MessageDigest
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val info = this.packageManager.getPackageInfo(this.packageName, PackageManager.GET_SIGNING_CERTIFICATES)
+        for (signature in info.signingInfo.apkContentsSigners) {
+            val md = MessageDigest.getInstance("SHA")
+            md.update(signature.toByteArray())
+
+            Log.d("hash key", "key hash = ${Base64.encodeToString(md.digest(), Base64.NO_WRAP)}")
+        }
+
         setContent {
             MyApplicationTheme {
                 Surface(
@@ -43,9 +59,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-enum class AppScreen(private val title: String) {
-    Search("Search"),
-    Bookmark("Bookmark")
+enum class AppScreen {
+    Search,
+    Bookmark
 }
 
 @Composable
@@ -64,21 +80,25 @@ fun MainApp(
 
             BottomAppBar {
                 screens.forEach { screen ->
+                    val route = screen.key.name
+
                     NavigationBarItem(
-                        selected = (currentDestination?.hierarchy?.any { it.route == screen.key.name } == true),
+                        selected = (currentDestination?.hierarchy?.any {
+                            it.route == route
+                        } == true),
                         onClick = {
-                            navController.navigate(screen.key.name) {
+                            navController.navigate(route) {
                                 launchSingleTop = true
                             }
                         },
                         icon = {
                             Icon(
                                 imageVector = screen.value,
-                                contentDescription = screen.key.name
+                                contentDescription = route
                             )
                         },
                         label = {
-                            Text(text = screen.key.name)
+                            Text(text = route)
                         }
                     )
                 }
