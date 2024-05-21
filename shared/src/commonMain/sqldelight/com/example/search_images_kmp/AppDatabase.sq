@@ -14,4 +14,4 @@ selectAllImages:
 SELECT * FROM LocalImage;
 
 deleteImages:
-DELETE FROM LocalImage WHERE id = :id;
+DELETE FROM LocalImage WHERE id IN :id;

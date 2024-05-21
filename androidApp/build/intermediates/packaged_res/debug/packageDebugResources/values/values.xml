@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bookmark">Bookmark</string>
+    <string name="delete">DELETE</string>
+    <string name="error_message">Error occurred. Please try again.</string>
+    <string name="search">Search</string>
+    <style name="AppTheme" parent="android:Theme.Material.NoActionBar"/>
+</resources>

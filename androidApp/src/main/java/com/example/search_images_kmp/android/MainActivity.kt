@@ -1,10 +1,7 @@
 package com.example.search_images_kmp.android
 
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Base64
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
@@ -29,22 +26,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.search_images_kmp.android.constant.AppScreen
 import com.example.search_images_kmp.android.ui.bookmark.BookmarkScreen
 import com.example.search_images_kmp.android.ui.search.SearchScreen
-import java.security.MessageDigest
 
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val info = this.packageManager.getPackageInfo(this.packageName, PackageManager.GET_SIGNING_CERTIFICATES)
-        for (signature in info.signingInfo.apkContentsSigners) {
-            val md = MessageDigest.getInstance("SHA")
-            md.update(signature.toByteArray())
-
-            Log.d("hash key", "key hash = ${Base64.encodeToString(md.digest(), Base64.NO_WRAP)}")
-        }
 
         setContent {
             MyApplicationTheme {
@@ -57,11 +46,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
-
-enum class AppScreen {
-    Search,
-    Bookmark
 }
 
 @Composable

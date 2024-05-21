@@ -1,0 +1,7 @@
+R_DEF: Internal format may change without notice
+local
+string bookmark
+string delete
+string error_message
+string search
+style AppTheme

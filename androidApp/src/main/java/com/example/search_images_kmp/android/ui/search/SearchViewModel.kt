@@ -8,6 +8,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.search_images_kmp.android.di.App
 import com.example.search_images_kmp.model.NetworkImage
+import com.example.search_images_kmp.repository.ImageRepository
 import com.example.search_images_kmp.repository.SearchRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,7 +23,8 @@ data class SearchUiState(
 )
 
 class SearchViewModel(
-    private val repository: SearchRepository
+    private val searchRepository: SearchRepository,
+    private val imageRepository: ImageRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SearchUiState())
@@ -40,7 +42,7 @@ class SearchViewModel(
         }
 
         viewModelScope.launch {
-            val result = repository.searchImages(keyword, _uiState.value.page)
+            val result = searchRepository.searchImages(keyword, _uiState.value.page)
 
             _uiState.update {
                 it.copy(
@@ -52,13 +54,21 @@ class SearchViewModel(
         }
     }
 
+    fun insertImage(image: NetworkImage) {
+        imageRepository.insertImage(image, _uiState.value.keyword)
+    }
+
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val application = (this[APPLICATION_KEY] as App)
-                val repository = application.container.repository
+                val searchRepository = application.container.searchRepository
+                val imageRepository = application.container.imageRepository
 
-                SearchViewModel(repository = repository)
+                SearchViewModel(
+                    searchRepository = searchRepository,
+                    imageRepository = imageRepository
+                )
             }
         }
     }
