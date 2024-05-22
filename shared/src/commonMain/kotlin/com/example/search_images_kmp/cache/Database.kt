@@ -1,5 +1,6 @@
 package com.example.search_images_kmp.cache
 
+import com.example.search_images_kmp.Database
 import com.example.search_images_kmp.model.NetworkImage
 import com.example.searchimageskmp.LocalImage
 import kotlinx.coroutines.Dispatchers
@@ -12,6 +13,10 @@ class Database(databaseDriverFactory: DatabaseDriverFactory) {
 
     suspend fun getAllImages(): List<LocalImage> = withContext(Dispatchers.IO) {
         dbQuery.selectAllImages().executeAsList()
+    }
+
+    suspend fun getImage(id: String): LocalImage = withContext(Dispatchers.IO) {
+        dbQuery.getImage(id).executeAsOne()
     }
 
     fun insertImage(image: NetworkImage, keyword: String) {

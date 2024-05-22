@@ -13,5 +13,8 @@ VALUES (?, ?, ?, ?, ?);
 selectAllImages:
 SELECT * FROM LocalImage;
 
+getImage:
+SELECT * FROM LocalImage WHERE id = :id;
+
 deleteImages:
 DELETE FROM LocalImage WHERE id IN :id;

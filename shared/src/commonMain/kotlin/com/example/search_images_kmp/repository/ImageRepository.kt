@@ -11,6 +11,10 @@ class ImageRepository(
         return database.getAllImages()
     }
 
+    suspend fun getImage(id: String): LocalImage {
+        return database.getImage(id)
+    }
+
     fun insertImage(image: NetworkImage, keyword: String) {
         database.insertImage(image, keyword)
     }

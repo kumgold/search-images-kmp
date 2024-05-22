@@ -2,6 +2,12 @@
 <resources>
     <string name="search">Search</string>
     <string name="bookmark">Bookmark</string>
-    <string name="delete">DELETE</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="edit">Edit</string>
+    <string name="image_detail">Image detail</string>
+
+    <string name="insert_image_message">image inserted.</string>
+    <string name="delete_image_message">image deleted.</string>
     <string name="error_message">Error occurred. Please try again.</string>
 </resources>

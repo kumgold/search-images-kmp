@@ -69,6 +69,7 @@ class BookmarkViewModel(
     fun deleteImages() {
         viewModelScope.launch {
             repository.deleteImages(_deleteImages.value)
+            _userMessage.value = R.string.delete_image_message
             changeEditMode()
             getAllImages()
         }
@@ -79,12 +80,36 @@ class BookmarkViewModel(
         _deleteImages.value.clear()
     }
 
+    fun stopEditMode() {
+        _editMode.value = false
+        _deleteImages.value.clear()
+    }
+
     fun editDeleteImageList(image: LocalImage) {
         if (_deleteImages.value.contains(image.id)) {
             _deleteImages.value.remove(image.id)
         } else {
             _deleteImages.value.add(image.id)
         }
+    }
+
+    fun searchImages(keyword: String) {
+        _isLoading.value = true
+
+        viewModelScope.launch {
+            try {
+                _images.value = repository.getAllImages().filter {
+                    it.keyword?.contains(keyword) ?: false
+                }
+            } catch (e: Exception) {
+                _userMessage.value = R.string.error_message
+            }
+            _isLoading.value = false
+        }
+    }
+
+    fun snackBarMessageShown() {
+        _userMessage.value = null
     }
 
     companion object {

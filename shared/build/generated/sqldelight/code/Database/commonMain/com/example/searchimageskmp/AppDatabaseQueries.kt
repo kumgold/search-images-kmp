@@ -2,6 +2,8 @@ package com.example.searchimageskmp
 
 import app.cash.sqldelight.Query
 import app.cash.sqldelight.TransacterImpl
+import app.cash.sqldelight.db.QueryResult
+import app.cash.sqldelight.db.SqlCursor
 import app.cash.sqldelight.db.SqlDriver
 import kotlin.Any
 import kotlin.String
@@ -33,6 +35,33 @@ public class AppDatabaseQueries(
       documentUrl, keyword ->
     LocalImage(
       id,
+      imageUrl,
+      thumbnailUrl,
+      documentUrl,
+      keyword
+    )
+  }
+
+  public fun <T : Any> getImage(id: String, mapper: (
+    id: String,
+    imageUrl: String,
+    thumbnailUrl: String?,
+    documentUrl: String?,
+    keyword: String?,
+  ) -> T): Query<T> = GetImageQuery(id) { cursor ->
+    mapper(
+      cursor.getString(0)!!,
+      cursor.getString(1)!!,
+      cursor.getString(2),
+      cursor.getString(3),
+      cursor.getString(4)
+    )
+  }
+
+  public fun getImage(id: String): Query<LocalImage> = getImage(id) { id_, imageUrl, thumbnailUrl,
+      documentUrl, keyword ->
+    LocalImage(
+      id_,
       imageUrl,
       thumbnailUrl,
       documentUrl,
@@ -72,5 +101,27 @@ public class AppDatabaseQueries(
     notifyQueries(-1_491_444_336) { emit ->
       emit("LocalImage")
     }
+  }
+
+  private inner class GetImageQuery<out T : Any>(
+    public val id: String,
+    mapper: (SqlCursor) -> T,
+  ) : Query<T>(mapper) {
+    override fun addListener(listener: Query.Listener) {
+      driver.addListener("LocalImage", listener = listener)
+    }
+
+    override fun removeListener(listener: Query.Listener) {
+      driver.removeListener("LocalImage", listener = listener)
+    }
+
+    override fun <R> execute(mapper: (SqlCursor) -> QueryResult<R>): QueryResult<R> =
+        driver.executeQuery(1_595_257_778,
+        """SELECT LocalImage.id, LocalImage.imageUrl, LocalImage.thumbnailUrl, LocalImage.documentUrl, LocalImage.keyword FROM LocalImage WHERE id = ?""",
+        mapper, 1) {
+      bindString(0, id)
+    }
+
+    override fun toString(): String = "AppDatabase.sq:getImage"
   }
 }

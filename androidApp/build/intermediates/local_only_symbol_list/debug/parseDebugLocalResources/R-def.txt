@@ -1,7 +1,14 @@
 R_DEF: Internal format may change without notice
 local
+dimen default_margin
+dimen default_margin_large
 string bookmark
+string cancel
 string delete
+string delete_image_message
+string edit
 string error_message
+string image_detail
+string insert_image_message
 string search
 style AppTheme

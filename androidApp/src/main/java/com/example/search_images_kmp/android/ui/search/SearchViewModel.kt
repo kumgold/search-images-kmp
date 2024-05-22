@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.search_images_kmp.android.R
 import com.example.search_images_kmp.android.di.App
 import com.example.search_images_kmp.model.NetworkImage
 import com.example.search_images_kmp.repository.ImageRepository
@@ -56,6 +57,15 @@ class SearchViewModel(
 
     fun insertImage(image: NetworkImage) {
         imageRepository.insertImage(image, _uiState.value.keyword)
+        _uiState.update {
+            it.copy(
+                message = R.string.insert_image_message
+            )
+        }
+    }
+
+    fun snackBarMessageShown() {
+        _uiState.update { it.copy(message = null) }
     }
 
     companion object {

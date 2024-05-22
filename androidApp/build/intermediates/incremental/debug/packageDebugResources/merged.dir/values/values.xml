@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="default_margin">8dp</dimen>
+    <dimen name="default_margin_large">16dp</dimen>
     <string name="bookmark">Bookmark</string>
-    <string name="delete">DELETE</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="delete_image_message">image deleted.</string>
+    <string name="edit">Edit</string>
     <string name="error_message">Error occurred. Please try again.</string>
+    <string name="image_detail">Image detail</string>
+    <string name="insert_image_message">image inserted.</string>
     <string name="search">Search</string>
     <style name="AppTheme" parent="android:Theme.Material.NoActionBar"/>
 </resources>
