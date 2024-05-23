@@ -10,5 +10,6 @@ string edit
 string error_message
 string image_detail
 string insert_image_message
+string more_images
 string search
 style AppTheme

@@ -251,6 +251,7 @@ string in_progress
 string indeterminate
 string insert_image_message
 string m3c_bottom_sheet_pane_title
+string more_images
 string navigation_menu
 string not_selected
 string off

@@ -6,6 +6,7 @@
     <string name="cancel">Cancel</string>
     <string name="edit">Edit</string>
     <string name="image_detail">Image detail</string>
+    <string name="more_images">More</string>
 
     <string name="insert_image_message">image inserted.</string>
     <string name="delete_image_message">image deleted.</string>
