@@ -1,4 +1,4 @@
-# Serach images Application (Kotlin Multiplatform Version)
+# Serach images Application (Kotlin Multiplatform)
 <p>
   <img src="./images/image_1.png" height="400" width="250">
   <img src="./images/image_2.png" height="400" width="250">
